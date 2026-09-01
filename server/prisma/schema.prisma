@@ -1,0 +1,145 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String
+  password  String
+  avatarUrl String?  @map("avatar_url")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("users")
+}
+
+
+enum BookingStatus {
+  pending
+  assigned
+  on_the_way
+  in_progress
+  completed
+  cancelled
+}
+
+enum MechanicStatus {
+  available
+  busy
+  on_break
+  offline
+}
+
+model Customer {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  phone     String
+  avatar    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  vehicles  Vehicle[]
+  bookings  Booking[]
+}
+
+model Vehicle {
+  id           String @id @default(cuid())
+  make         String
+  model        String
+  year         Int
+  licensePlate String @unique
+  color        String?
+
+  customerId String
+  customer   Customer @relation(fields: [customerId], references: [id])
+
+  bookings Booking[]
+}
+
+model Mechanic {
+  id                String         @id @default(cuid())
+  name              String
+  email             String         @unique
+  phone             String
+  avatar            String?
+  status            MechanicStatus @default(offline)
+  specialization    String[]
+  rating            Float          @default(5.0)
+  totalJobsCompleted Int           @default(0)
+  createdAt         DateTime       @default(now())
+
+  bookings       Booking[]
+  statusHistory  MechanicStatusHistory[]
+}
+
+model MechanicStatusHistory {
+  id        String   @id @default(cuid())
+  status    MechanicStatus
+  reason    String?
+  createdAt DateTime @default(now())
+
+  mechanicId String
+  mechanic   Mechanic @relation(fields: [mechanicId], references: [id])
+}
+
+model ServiceCategory {
+  id          String @id @default(cuid())
+  name        String @unique
+  description String?
+  basePrice   Float
+  avgDuration Int    // in minutes
+
+  bookings Booking[]
+}
+
+model Booking {
+  id              String        @id @default(cuid())
+  bookingNumber   String        @unique
+  status          BookingStatus @default(pending)
+  amount          Float
+  currency        String        @default("USD")
+  scheduledDate   DateTime
+  scheduledTime   String        // "14:00" format
+  completedAt     DateTime?
+  notes           String?
+  address         String
+  lat             Float?
+  lng             Float?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  customerId String
+  customer   Customer @relation(fields: [customerId], references: [id])
+
+  vehicleId String
+  vehicle   Vehicle  @relation(fields: [vehicleId], references: [id])
+
+  mechanicId String?
+  mechanic   Mechanic? @relation(fields: [mechanicId], references: [id])
+
+  serviceCategoryId String
+  serviceCategory   ServiceCategory @relation(fields: [serviceCategoryId], references: [id])
+
+  statusHistory BookingStatusHistory[]
+}
+
+model BookingStatusHistory {
+  id        String        @id @default(cuid())
+  status    BookingStatus
+  notes     String?
+  createdAt DateTime      @default(now())
+
+  bookingId String
+  booking   Booking @relation(fields: [bookingId], references: [id])
+}
