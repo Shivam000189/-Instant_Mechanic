@@ -2,7 +2,7 @@
 
 > An enterprise-grade, full-stack SaaS dashboard for managing on-demand vehicle service operations in real-time. Built for the **Instant Mechanic** operations and dispatch team to monitor bookings, mechanic fleet allocation, customer requests, and business revenue — all in one centralized command center.
 
-[![Vercel Deployment](https://img.shields.io/badge/Frontend-Vercel-black?style=flat&logo=vercel)](https://instant-mechanic.vercel.app)
+[![Vercel Deployment](https://img.shields.io/badge/Frontend-Vercel-black?style=flat&logo=vercel)](https://client-theta-liard-65.vercel.app/)
 [![Render Deployment](https://img.shields.io/badge/Backend-Render-46E3B7?style=flat&logo=render)](https://instant-mechanic.onrender.com)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue?style=flat&logo=typescript)](https://www.typescriptlang.org/)
 [![React](https://img.shields.io/badge/React-19.x-61DAFB?style=flat&logo=react)](https://react.dev/)
