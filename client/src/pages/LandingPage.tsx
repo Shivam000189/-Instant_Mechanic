@@ -740,7 +740,7 @@ function Footer() {
 }
 
 /* ─── Main Landing Page ─── */
-export default function LandingPage() {
+export function LandingPage() {
   const [loaded, setLoaded] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
