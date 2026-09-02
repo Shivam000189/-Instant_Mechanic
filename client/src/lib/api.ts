@@ -52,6 +52,11 @@ export const getMechanics = async (params?: { status?: string; search?: string }
   return data.data;
 };
 
+export const getMechanicById = async (id: string) => {
+  const { data } = await api.get(`/mechanics/${id}`);
+  return data.data;
+};
+
 export const updateMechanicStatus = async (id: string, status: string, reason?: string) => {
   const { data } = await api.patch(`/mechanics/${id}/status`, { status, reason });
   return data.data;

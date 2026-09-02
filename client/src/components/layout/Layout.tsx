@@ -1,11 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Header } from './Header';
-import { Sidebar } from './Sidebar';
 import { useSSE } from '@/hooks/useSSE';
 
 export function Layout() {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isDark, setIsDark] = useState(() => {
     if (typeof window !== 'undefined') {
       return document.documentElement.classList.contains('dark');
@@ -25,20 +23,15 @@ export function Layout() {
   }, [isDark]);
 
   return (
-    <div className="flex h-screen bg-background text-foreground overflow-hidden">
-      <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+    <div className="min-h-screen bg-background text-foreground flex flex-col">
+      <Header
+        isDark={isDark}
+        onToggleTheme={() => setIsDark(!isDark)}
+      />
       
-      <div className="flex flex-col flex-1 overflow-hidden">
-        <Header
-          onMenuClick={() => setSidebarOpen(true)}
-          isDark={isDark}
-          onToggleTheme={() => setIsDark(!isDark)}
-        />
-        
-        <main className="flex-1 overflow-auto p-4 md:p-6">
-          <Outlet />
-        </main>
-      </div>
+      <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+        <Outlet />
+      </main>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, Link, useLocation } from 'react-router-dom';
 import { LayoutDashboard, Calendar, Wrench, Users, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -8,7 +8,7 @@ interface SidebarProps {
 }
 
 const navItems = [
-  { to: '/', icon: LayoutDashboard, label: 'Dashboard' },
+  { to: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
   { to: '/bookings', icon: Calendar, label: 'Bookings' },
   { to: '/mechanics', icon: Wrench, label: 'Mechanics' },
 ];
@@ -33,12 +33,12 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
         )}
       >
         <div className="flex h-16 items-center justify-between border-b px-6">
-          <div className="flex items-center gap-2">
+          <Link to="/" className="flex items-center gap-2" title="Back to Landing Page">
             <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center">
               <Wrench className="h-4 w-4 text-primary-foreground" />
             </div>
             <span className="text-lg font-bold">Instant</span>
-          </div>
+          </Link>
           <button onClick={onClose} className="md:hidden">
             <X className="h-5 w-5" />
           </button>
@@ -46,7 +46,10 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
 
         <nav className="flex flex-col gap-1 p-4">
           {navItems.map((item) => {
-            const isActive = location.pathname === item.to;
+            const isActive =
+              item.to === '/dashboard'
+                ? location.pathname === '/' || location.pathname === '/dashboard'
+                : location.pathname === item.to;
             return (
               <NavLink
                 key={item.to}

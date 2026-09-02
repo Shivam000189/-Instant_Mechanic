@@ -1,44 +1,106 @@
-import { Badge } from '../ui/badge';
 import type { BookingStatus } from '../../types/index';
 import { cn } from '../../lib/utils';
 
-const statusConfig: Record<BookingStatus, { label: string; className: string }> = {
+const statusConfig: Record<
+  BookingStatus,
+  {
+    label: string;
+    bgClass: string;
+    textClass: string;
+    borderClass: string;
+    dotClass: string;
+    hasPing?: boolean;
+  }
+> = {
   pending: {
     label: 'Pending',
-    className: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400 border-yellow-200 dark:border-yellow-800',
+    bgClass: 'bg-amber-500/12 dark:bg-amber-500/20',
+    textClass: 'text-amber-800 dark:text-amber-300 font-semibold',
+    borderClass: 'border-amber-500/35 dark:border-amber-500/40',
+    dotClass: 'bg-amber-500 shadow-[0_0_6px_rgba(245,158,11,0.6)]',
+    hasPing: false,
   },
   assigned: {
     label: 'Assigned',
-    className: 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400 border-purple-200 dark:border-purple-800',
+    bgClass: 'bg-violet-500/12 dark:bg-violet-500/20',
+    textClass: 'text-violet-800 dark:text-violet-300 font-semibold',
+    borderClass: 'border-violet-500/35 dark:border-violet-500/40',
+    dotClass: 'bg-violet-500 shadow-[0_0_6px_rgba(139,92,246,0.6)]',
+    hasPing: false,
   },
   on_the_way: {
     label: 'On The Way',
-    className: 'bg-cyan-100 text-cyan-800 dark:bg-cyan-900/30 dark:text-cyan-400 border-cyan-200 dark:border-cyan-800',
+    bgClass: 'bg-cyan-500/12 dark:bg-cyan-500/20',
+    textClass: 'text-cyan-800 dark:text-cyan-300 font-semibold',
+    borderClass: 'border-cyan-500/35 dark:border-cyan-500/40',
+    dotClass: 'bg-cyan-500 shadow-[0_0_6px_rgba(6,182,212,0.6)]',
+    hasPing: true,
   },
   in_progress: {
     label: 'In Progress',
-    className: 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400 border-blue-200 dark:border-blue-800',
+    bgClass: 'bg-blue-500/12 dark:bg-blue-500/20',
+    textClass: 'text-blue-800 dark:text-blue-300 font-semibold',
+    borderClass: 'border-blue-500/35 dark:border-blue-500/40',
+    dotClass: 'bg-blue-500 shadow-[0_0_6px_rgba(59,130,246,0.6)]',
+    hasPing: true,
   },
   completed: {
     label: 'Completed',
-    className: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400 border-green-200 dark:border-green-800',
+    bgClass: 'bg-emerald-500/12 dark:bg-emerald-500/20',
+    textClass: 'text-emerald-800 dark:text-emerald-300 font-semibold',
+    borderClass: 'border-emerald-500/35 dark:border-emerald-500/40',
+    dotClass: 'bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.6)]',
+    hasPing: false,
   },
   cancelled: {
     label: 'Cancelled',
-    className: 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400 border-red-200 dark:border-red-800',
+    bgClass: 'bg-rose-500/12 dark:bg-rose-500/20',
+    textClass: 'text-rose-800 dark:text-rose-300 font-semibold',
+    borderClass: 'border-rose-500/35 dark:border-rose-500/40',
+    dotClass: 'bg-rose-500 shadow-[0_0_6px_rgba(244,63,94,0.6)]',
+    hasPing: false,
   },
 };
 
 interface StatusBadgeProps {
   status: BookingStatus;
+  size?: 'sm' | 'md';
+  className?: string;
 }
 
-export function StatusBadge({ status }: StatusBadgeProps) {
+export function StatusBadge({ status, size = 'sm', className }: StatusBadgeProps) {
   const config = statusConfig[status] || statusConfig.pending;
-  
+
   return (
-    <Badge variant="outline" className={cn('font-medium', config.className)}>
-      {config.label}
-    </Badge>
+    <span
+      className={cn(
+        'inline-flex items-center gap-1.5 rounded-full border shadow-xs transition-all duration-200 select-none whitespace-nowrap',
+        size === 'sm' ? 'px-2.5 py-0.5 text-[11px]' : 'px-3 py-1 text-xs',
+        config.bgClass,
+        config.textClass,
+        config.borderClass,
+        className
+      )}
+    >
+      {/* Animated / Static Dot */}
+      <span className="relative flex items-center justify-center shrink-0">
+        {config.hasPing && (
+          <span
+            className={cn(
+              'animate-ping absolute inline-flex h-full w-full rounded-full opacity-75',
+              config.dotClass
+            )}
+          />
+        )}
+        <span
+          className={cn(
+            'relative inline-flex rounded-full',
+            size === 'sm' ? 'h-1.5 w-1.5' : 'h-2 w-2',
+            config.dotClass
+          )}
+        />
+      </span>
+      <span>{config.label}</span>
+    </span>
   );
 }

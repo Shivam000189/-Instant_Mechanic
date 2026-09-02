@@ -25,6 +25,7 @@ export function useSSE() {
         queryClient.invalidateQueries({ queryKey: ['bookings'] });
         queryClient.invalidateQueries({ queryKey: ['dashboard'] });
         queryClient.invalidateQueries({ queryKey: ['mechanics'] });
+        queryClient.invalidateQueries({ queryKey: ['notifications-bookings'] });
       } catch (err) {
         console.error('SSE parse error:', err);
       }

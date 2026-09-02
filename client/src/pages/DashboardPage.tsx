@@ -27,22 +27,25 @@ export function DashboardPage() {
   const charts = data?.charts;
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-bold tracking-tight">Dashboard</h2>
-        <p className="text-muted-foreground">
-          Overview of your operations today
-        </p>
+    <div className="space-y-6 animate-fade-in-up">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+        <div>
+          <h2 className="text-2xl font-bold tracking-tight">Dashboard</h2>
+          <p className="text-muted-foreground text-sm">
+            Real-time live vehicle service operations overview
+          </p>
+        </div>
       </div>
 
       {/* Stats Grid */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <StatCard
           title="Total Bookings"
           value={overview?.totalBookings ?? 0}
           description="All time bookings"
           icon={Calendar}
           isLoading={isLoading}
+          to="/bookings"
         />
         <StatCard
           title="Today's Bookings"
@@ -50,6 +53,7 @@ export function DashboardPage() {
           description="New bookings today"
           icon={TrendingUp}
           isLoading={isLoading}
+          to="/bookings"
         />
         <StatCard
           title="Completed"
@@ -57,6 +61,7 @@ export function DashboardPage() {
           description={`${overview?.pendingBookings ?? 0} pending`}
           icon={CheckCircle}
           isLoading={isLoading}
+          to="/bookings"
         />
         <StatCard
           title="Total Revenue"
@@ -71,6 +76,7 @@ export function DashboardPage() {
           description="Currently working"
           icon={Wrench}
           isLoading={isLoading}
+          to="/mechanics"
         />
         <StatCard
           title="New Customers"
@@ -85,6 +91,7 @@ export function DashboardPage() {
           description="Awaiting assignment"
           icon={Clock}
           isLoading={isLoading}
+          to="/bookings"
         />
         <StatCard
           title="Cancelled"
@@ -92,30 +99,39 @@ export function DashboardPage() {
           description="Total cancelled"
           icon={XCircle}
           isLoading={isLoading}
+          to="/bookings"
         />
       </div>
 
       {/* Charts */}
-      <div className="grid gap-4 md:grid-cols-2">
-        <BookingsChart
-          data={charts?.bookingsOverTime ?? []}
-          isLoading={isLoading}
-        />
-        <RevenueChart
-          data={charts?.bookingsOverTime ?? []}
-          isLoading={isLoading}
-        />
+      <div className="grid gap-5 md:grid-cols-2">
+        <div className="transition-all duration-300 hover:shadow-md rounded-xl">
+          <BookingsChart
+            data={charts?.bookingsOverTime ?? []}
+            isLoading={isLoading}
+          />
+        </div>
+        <div className="transition-all duration-300 hover:shadow-md rounded-xl">
+          <RevenueChart
+            data={charts?.bookingsOverTime ?? []}
+            isLoading={isLoading}
+          />
+        </div>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2">
-        <StatusPieChart
-          data={charts?.statusBreakdown ?? []}
-          isLoading={isLoading}
-        />
-        <ServiceBarChart
-          data={charts?.serviceBreakdown ?? []}
-          isLoading={isLoading}
-        />
+      <div className="grid gap-5 md:grid-cols-2">
+        <div className="transition-all duration-300 hover:shadow-md rounded-xl">
+          <StatusPieChart
+            data={charts?.statusBreakdown ?? []}
+            isLoading={isLoading}
+          />
+        </div>
+        <div className="transition-all duration-300 hover:shadow-md rounded-xl">
+          <ServiceBarChart
+            data={charts?.serviceBreakdown ?? []}
+            isLoading={isLoading}
+          />
+        </div>
       </div>
     </div>
   );
