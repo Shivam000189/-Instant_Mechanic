@@ -10,7 +10,7 @@
 [![Prisma](https://img.shields.io/badge/Prisma-ORM-2D3748?style=flat&logo=prisma)](https://www.prisma.io/)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-14+-336791?style=flat&logo=postgresql)](https://www.postgresql.org/)
 
-**Live Demo:** [https://instant-mechanic.vercel.app](https://instant-mechanic.vercel.app)  
+**Live Demo:** [https://client-theta-liard-65.vercel.app](https://client-theta-liard-65.vercel.app)  
 **API Base URL:** [https://instant-mechanic.onrender.com/api/v1](https://instant-mechanic.onrender.com/api/v1)  
 **GitHub Repository:** [https://github.com/Shivam000189/-Instant_Mechanic](https://github.com/Shivam000189/-Instant_Mechanic)
 
@@ -310,7 +310,7 @@ curl "http://localhost:5000/api/v1/mechanics?status=available&search=John"
    - `DATABASE_URL`: Your hosted PostgreSQL connection string
    - `NODE_ENV`: `production`
    - `PORT`: `5000`
-   - `FRONTEND_URL`: `https://instant-mechanic.vercel.app`
+   - `FRONTEND_URL`: `https://client-theta-liard-65.vercel.app`
 
 ---
 

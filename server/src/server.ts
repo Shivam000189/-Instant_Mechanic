@@ -22,6 +22,8 @@ const defaultAllowedOrigins = [
   'http://localhost:3000',
   'http://127.0.0.1:5173',
   'http://127.0.0.1:3000',
+  'https://client-theta-liard-65.vercel.app',
+  'https://instant-mechanic.vercel.app',
 ];
 
 const envAllowedOrigins = [

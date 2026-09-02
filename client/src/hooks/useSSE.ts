@@ -1,7 +1,11 @@
 import { useEffect, useRef, useCallback } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api/v1';
+const API_URL =
+  import.meta.env.VITE_API_URL ||
+  (import.meta.env.PROD
+    ? 'https://instant-mechanic.onrender.com/api/v1'
+    : 'http://localhost:5000/api/v1');
 
 export function useSSE() {
   const queryClient = useQueryClient();
