@@ -16,7 +16,21 @@
 
 ---
 
-## 📸 Overview & Key Highlights
+## 📌 Project Overview
+
+### What Was Built
+**Instant Mechanic™** is a full-stack, enterprise-grade operations and dispatch dashboard designed for on-demand vehicle roadside assistance and mobile repair businesses. It provides an all-in-one control center for dispatchers, operations managers, and administrators to monitor bookings in real time, assign mechanics, track fleet availability, and analyze revenue metrics.
+
+### Why It Was Built
+Traditional roadside mechanics and fleet operations face major dispatch delays, manual phone coordination, and lack of real-time visibility. This platform solves those operational bottlenecks by providing:
+- **Instant visibility** into which mechanics are available, busy on a job, on break, or offline.
+- **Real-time dispatch coordination** with live Server-Sent Events (SSE) so state changes reflect across all connected operators instantly without manual page refreshing.
+- **Streamlined booking workflows** with end-to-end lifecycle tracking from *Pending* to *Completed*.
+- **Executive financial and operational clarity** with revenue breakdown, service category demand, and workload distribution charts.
+
+---
+
+## 📸 Key Features & Highlights
 
 - ⚡ **Real-Time Live Updates**: Built with **Server-Sent Events (SSE)** for automatic zero-refresh synchronization across the dashboard and notifications.
 - 🔔 **Interactive Notification Center**: Real-time new bookings drawer with live counters, booking summaries, and direct navigation.
@@ -311,6 +325,26 @@ curl "http://localhost:5000/api/v1/mechanics?status=available&search=John"
    - `NODE_ENV`: `production`
    - `PORT`: `5000`
    - `FRONTEND_URL`: `https://client-theta-liard-65.vercel.app`
+
+---
+
+## 🤖 AI Usage & Engineering Process
+
+### 🛠️ AI Tools Utilized
+- **Claude / Antigravity AI**: Architecture design, API route scaffolding, and edge-case debugging.
+- **GitHub Copilot**: Autocompleting repetitive TypeScript interfaces and Tailwind utility classes.
+
+### 🎯 What AI Was Used For
+- Scaffolding the initial Express controller/service layer patterns and error handling boilerplate.
+- Brainstorming realistic seed data generation strategies for 500+ mock bookings, customers, and vehicles.
+- Generating base chart configurations in Recharts.
+
+### ⚙️ What Was Personally Designed, Built & Refined
+- **Real-Time SSE Engine**: Architected the Server-Sent Events subscriber pool (`utils/sse.ts`), event emission triggers upon booking status changes, and React Query cache invalidation hook (`useSSE.ts`).
+- **Interactive Details Modals**: Built the **Booking Details Modal** (customer contact cards, vehicle specs, service duration, and real-time status transitions) and **Mechanic Details Modal** (live beacon indicators, rating, active jobs, and quick status changer).
+- **Notification Drawer**: Designed the interactive header notification center with live unread counts, recent bookings feed, and click-outside dismissal.
+- **Design System & Color Palette**: Tailored the high-contrast light/dark status badge palette (`Emerald`, `Blue`, `Amber`, `Cyan`, `Violet`, `Rose`) with animated pulsing beacon dots.
+- **Production Build & SPA Routing**: Optimized Vite chunking (reducing bundle size by >70% with manual chunk splitting) and configured `vercel.json` and `_redirects` for zero-404 client routing.
 
 ---
 
